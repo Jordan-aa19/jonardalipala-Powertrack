@@ -1,1 +1,1369 @@
+/* =====================================================
+   POWERTRACK - CRIMSON CIRCUIT
+   COMPLETE STYLESHEET
+===================================================== */
 
+
+/* =====================================================
+   1. DARK THEME
+===================================================== */
+
+:root {
+    color-scheme: dark;
+
+    --bg: #19191e;
+    --card: #29292f;
+    --ink: #fff1f2;
+    --muted: #c0aab0;
+    --line: #49404a;
+    --accent: #f04b60;
+    --hero: #45232c;
+
+    --success: #38c98b;
+    --danger: #f04b60;
+    --warning: #e6a23c;
+    --blue: #397ed4;
+
+    --shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+}
+
+
+/* =====================================================
+   2. LIGHT THEME
+===================================================== */
+
+body.light {
+    color-scheme: light;
+
+    --bg: #fff3f4;
+    --card: #ffffff;
+    --ink: #38232b;
+    --muted: #795c65;
+    --line: #ead6db;
+    --hero: #ffdce2;
+    --accent: #b92345;
+
+    --success: #168653;
+    --danger: #c62845;
+
+    --shadow: 0 12px 40px rgba(130, 40, 60, 0.12);
+}
+
+
+/* =====================================================
+   3. GLOBAL RESET
+===================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 15px system-ui, sans-serif;
+    transition: background 0.3s, color 0.3s;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+p {
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+small {
+    letter-spacing: 2px;
+    color: var(--accent);
+}
+
+h1 {
+    font-size: clamp(26px, 4vw, 48px);
+    margin: 10px 0;
+}
+
+h2 {
+    font-size: 20px;
+}
+
+h3 {
+    margin-top: 0;
+}
+
+
+/* =====================================================
+   4. HEADER
+===================================================== */
+
+header,
+main {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.brand {
+    font-size: 25px;
+    font-weight: 850;
+    margin-right: auto;
+}
+
+.brand small {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--accent);
+}
+
+#connection {
+    font-size: 12px;
+    font-weight: 700;
+    padding: 9px 14px;
+    border: 1px solid var(--line);
+    border-radius: 30px;
+    background: var(--card);
+}
+
+#theme {
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+main {
+    padding-bottom: 130px;
+}
+
+
+/* =====================================================
+   5. HERO SECTION
+===================================================== */
+
+.hero {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background: linear-gradient(
+        120deg,
+        var(--hero),
+        var(--card)
+    );
+
+    border: 1px solid var(--line);
+    border-radius: 26px;
+    padding: 35px;
+    margin-bottom: 24px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    right: -80px;
+    top: -100px;
+    border-radius: 50%;
+    background: rgba(240, 75, 96, 0.08);
+    pointer-events: none;
+}
+
+.hero > div {
+    position: relative;
+    z-index: 1;
+}
+
+.hero p {
+    font-size: 16px;
+    margin-bottom: 24px;
+}
+
+.hero svg {
+    width: 26%;
+    max-width: 210px;
+    color: var(--accent);
+    flex-shrink: 0;
+}
+
+.bolt {
+    animation: float 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 12px #f04b60);
+}
+
+.circuit {
+    animation: pulse 2s infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-9px);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.35;
+    }
+}
+
+
+/* =====================================================
+   6. DASHBOARD STATISTICS
+===================================================== */
+
+.stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(210px, 1fr));
+
+    gap: 16px;
+}
+
+.stat,
+.panel,
+.item {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 19px;
+    padding: 22px;
+    box-shadow: var(--shadow);
+}
+
+.stat {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.25s, border-color 0.25s;
+}
+
+.stat::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+
+    background: linear-gradient(
+        90deg,
+        #a51d35,
+        #ff718b
+    );
+}
+
+.stat:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent);
+}
+
+.stat p {
+    font-size: 13px;
+    font-weight: 650;
+    margin-top: 5px;
+}
+
+.stat strong {
+    display: block;
+    font-size: clamp(23px, 3vw, 30px);
+    color: var(--accent);
+    overflow-wrap: anywhere;
+}
+
+.panel {
+    margin-top: 20px;
+}
+
+.panel h2 {
+    margin-top: 0;
+}
+
+
+/* =====================================================
+   7. CHART
+===================================================== */
+
+canvas {
+    display: block;
+    width: 100%;
+    max-height: 280px;
+}
+
+#chartTip {
+    font-size: 13px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+    background: var(--bg);
+}
+
+
+/* =====================================================
+   8. BUTTONS AND INPUTS
+===================================================== */
+
+button,
+input,
+select,
+textarea {
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 11px 15px;
+    background: var(--card);
+}
+
+button {
+    position: relative;
+    overflow: hidden;
+
+    transition:
+        transform 0.18s,
+        filter 0.18s,
+        box-shadow 0.18s;
+}
+
+button:not(:disabled):hover {
+    transform: translateY(-2px);
+    filter: brightness(1.13);
+}
+
+button:not(:disabled):active {
+    transform: scale(0.97);
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: wait;
+    transform: none;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+input,
+select,
+textarea {
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(240, 75, 96, 0.12);
+}
+
+input::placeholder {
+    color: var(--muted);
+}
+
+
+/* =====================================================
+   9. GRADIENT CRUD BUTTONS
+===================================================== */
+
+.primary,
+.delete,
+.edit,
+.read {
+    color: white;
+    border: none;
+    font-weight: 700;
+}
+
+.primary {
+    background: linear-gradient(
+        120deg,
+        #b91d45,
+        #f04b60
+    );
+
+    box-shadow: 0 5px 16px rgba(240, 75, 96, 0.25);
+}
+
+.delete {
+    background: linear-gradient(
+        120deg,
+        #a51d35,
+        #e74757
+    );
+}
+
+.edit {
+    background: linear-gradient(
+        120deg,
+        #8a5100,
+        #d89416
+    );
+}
+
+.read {
+    background: linear-gradient(
+        120deg,
+        #2359b8,
+        #397ed4
+    );
+}
+
+.read:hover {
+    box-shadow: 0 5px 18px rgba(57, 126, 212, 0.3);
+}
+
+.edit:hover {
+    box-shadow: 0 5px 18px rgba(216, 148, 22, 0.3);
+}
+
+.delete:hover {
+    box-shadow: 0 5px 18px rgba(240, 75, 96, 0.3);
+}
+
+
+/* =====================================================
+   10. FLOATING ICON DOCK
+===================================================== */
+
+.dock {
+    position: fixed;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    display: flex;
+    gap: 7px;
+    padding: 9px;
+
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 26px;
+
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+
+    z-index: 100;
+    max-width: 98vw;
+}
+
+.dock button {
+    border: none;
+    font-size: 25px;
+    min-width: 85px;
+    border-radius: 18px;
+    padding: 10px;
+}
+
+.dock span {
+    display: block;
+    font-size: 11px;
+    font-weight: 650;
+    margin-top: 3px;
+}
+
+.dock button.active {
+    background: linear-gradient(
+        120deg,
+        #b91d45,
+        #f04b60
+    );
+
+    color: white;
+    box-shadow: 0 5px 18px rgba(240, 75, 96, 0.3);
+}
+
+
+/* =====================================================
+   11. RECORD TOOLBAR
+===================================================== */
+
+.toolbar,
+.actions {
+    display: flex;
+    gap: 9px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.toolbar {
+    background: var(--card);
+    border: 1px solid var(--line);
+    padding: 18px;
+    border-radius: 18px;
+    margin-bottom: 18px;
+}
+
+.toolbar h2 {
+    margin: 0 auto 0 0;
+}
+
+.toolbar input {
+    min-width: 180px;
+}
+
+.toolbar select {
+    min-width: 130px;
+}
+
+.actions button {
+    font-size: 13px;
+    padding: 9px 14px;
+}
+
+
+/* =====================================================
+   12. TABLE VIEW
+===================================================== */
+
+.tablewrap {
+    overflow: auto;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: var(--card);
+    box-shadow: var(--shadow);
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    background: var(--card);
+}
+
+td,
+th {
+    text-align: left;
+    padding: 16px 14px;
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+}
+
+th {
+    color: var(--muted);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: var(--bg);
+}
+
+tbody tr {
+    transition: background 0.2s;
+}
+
+tbody tr:hover {
+    background: rgba(240, 75, 96, 0.05);
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+td .actions {
+    flex-wrap: nowrap;
+}
+
+
+/* =====================================================
+   13. CARD VIEW
+===================================================== */
+
+.cards {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(250px, 1fr));
+
+    gap: 16px;
+}
+
+.item {
+    transition: transform 0.25s, border-color 0.25s;
+    animation: cardEnter 0.35s ease;
+}
+
+.item:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+}
+
+.item p {
+    overflow-wrap: anywhere;
+    margin: 10px 0;
+}
+
+.item b {
+    color: var(--ink);
+}
+
+.item .actions {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid var(--line);
+}
+
+@keyframes cardEnter {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =====================================================
+   14. GENERAL MODAL DIALOGS
+===================================================== */
+
+dialog {
+    background: var(--card);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+
+    width: min(560px, 94vw);
+    max-height: 90vh;
+
+    overflow: auto;
+    padding: 28px;
+    margin: auto;
+
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
+}
+
+/* IMPORTANT: Hide closed dialogs */
+
+dialog:not([open]) {
+    display: none !important;
+}
+
+dialog[open] {
+    animation: modalEnter 0.25s ease-out;
+}
+
+dialog::backdrop {
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(5px);
+}
+
+dialog h2 {
+    margin-top: 0;
+    margin-bottom: 22px;
+}
+
+dialog button {
+    pointer-events: auto;
+}
+
+dialog .actions {
+    margin-top: 22px;
+    justify-content: flex-end;
+}
+
+@keyframes modalEnter {
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* =====================================================
+   15. ADD AND EDIT FORMS
+===================================================== */
+
+#modal {
+    width: min(580px, 94vw);
+}
+
+label {
+    display: block;
+    margin: 15px 0;
+    font-weight: 650;
+    font-size: 13px;
+    color: var(--ink);
+}
+
+label input,
+label select,
+label textarea {
+    display: block;
+    width: 100%;
+    margin-top: 7px;
+    padding: 12px 14px;
+    font-weight: 400;
+    background: var(--bg);
+}
+
+#fields {
+    padding: 2px;
+}
+
+#modal .actions button {
+    min-width: 110px;
+    padding: 12px 20px;
+}
+
+#cancel {
+    background: var(--bg);
+    color: var(--ink);
+}
+
+#save {
+    background: linear-gradient(
+        135deg,
+        #a51d35,
+        #f04b60
+    );
+}
+
+#estimate {
+    background: rgba(56, 201, 139, 0.08);
+    border-radius: 12px;
+    padding: 13px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+#estimate:empty {
+    display: none;
+}
+
+
+/* =====================================================
+   16. VALIDATION ERROR MESSAGES
+===================================================== */
+
+#formError,
+#deleteError {
+    color: var(--danger);
+    background: rgba(240, 75, 96, 0.1);
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 13px;
+    font-weight: 650;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+#formError:empty,
+#deleteError:empty {
+    display: none;
+}
+
+
+/* =====================================================
+   17. DELETE CONFIRMATION - FIXED
+===================================================== */
+
+#confirm {
+    width: min(420px, 92vw);
+    padding: 32px;
+    border-radius: 25px;
+    text-align: center;
+    background: var(--card);
+    color: var(--ink);
+}
+
+#confirm[open] {
+    animation: confirmEnter 0.25s ease;
+}
+
+.confirm-icon {
+    width: 85px;
+    height: 85px;
+    margin: 0 auto 22px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(240, 75, 96, 0.15);
+    color: #f04b60;
+
+    font-size: 38px;
+
+    pointer-events: none;
+
+    animation: warningPulse 2s infinite;
+}
+
+.confirm-icon svg {
+    width: 42px;
+    height: 42px;
+    pointer-events: none;
+}
+
+#confirm h2 {
+    font-size: 26px;
+    margin: 12px 0;
+    font-weight: 800;
+}
+
+#confirm p {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+#confirm .actions {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 26px;
+}
+
+
+/* CANCEL AND DELETE BUTTONS */
+
+#confirm #yes,
+#confirm #no {
+    position: relative;
+    flex: 1;
+    min-height: 48px;
+    padding: 14px 20px;
+    border-radius: 13px;
+
+    font-size: 14px;
+    font-weight: 750;
+
+    cursor: pointer;
+    pointer-events: auto;
+
+    z-index: 2;
+}
+
+#confirm #no {
+    background: #45454f;
+    color: white;
+    border: none;
+}
+
+#confirm #no:not(:disabled):hover {
+    background: #60606c;
+    transform: translateY(-2px);
+}
+
+#confirm #yes {
+    background: linear-gradient(
+        135deg,
+        #a51d35,
+        #f04b60
+    );
+
+    color: white;
+    border: none;
+
+    box-shadow: 0 6px 20px rgba(240, 75, 96, 0.3);
+}
+
+#confirm #yes:not(:disabled):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(240, 75, 96, 0.5);
+}
+
+#confirm button:disabled {
+    opacity: 0.5;
+    cursor: wait;
+    transform: none;
+}
+
+#deleteError {
+    margin-top: 18px;
+    text-align: left;
+}
+
+@keyframes warningPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.08);
+    }
+}
+
+@keyframes confirmEnter {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* =====================================================
+   18. SINGLE RECORD DETAILS
+===================================================== */
+
+#detail {
+    width: min(650px, 94vw);
+}
+
+#detailBody h2 {
+    color: var(--accent);
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--line);
+}
+
+#detailBody p {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+
+    padding: 12px 0;
+    margin: 0;
+
+    border-bottom: 1px solid var(--line);
+    overflow-wrap: anywhere;
+}
+
+#detailBody b {
+    color: var(--ink);
+}
+
+#print {
+    background: linear-gradient(
+        135deg,
+        #18764d,
+        #38c98b
+    );
+
+    color: white;
+    border: none;
+    font-weight: 700;
+}
+
+#closeDetail {
+    background: var(--bg);
+    color: var(--ink);
+}
+
+
+/* =====================================================
+   19. TOAST NOTIFICATIONS
+===================================================== */
+
+#notice {
+    position: fixed;
+
+    top: 85px;
+    right: 25px;
+
+    z-index: 1000;
+
+    padding: 16px 22px;
+
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+
+    box-shadow: var(--shadow);
+
+    font-size: 14px;
+    font-weight: 700;
+
+    max-width: min(380px, 90vw);
+
+    animation: toastEnter 0.3s ease;
+
+    pointer-events: none;
+}
+
+#notice:empty {
+    display: none;
+}
+
+#notice.success {
+    border-left: 5px solid var(--success);
+}
+
+#notice.error {
+    border-left: 5px solid var(--danger);
+}
+
+@keyframes toastEnter {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+/* =====================================================
+   20. RIPPLE EFFECT - CLICK SAFE
+===================================================== */
+
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+
+    width: 20px;
+    height: 20px;
+
+    pointer-events: none !important;
+
+    animation: ripple 0.55s forwards;
+}
+
+button .ripple {
+    pointer-events: none !important;
+}
+
+@keyframes ripple {
+    from {
+        transform: scale(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(16);
+        opacity: 0;
+    }
+}
+
+
+/* =====================================================
+   21. CUSTOM SCROLLBAR
+===================================================== */
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--line);
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+}
+
+
+/* =====================================================
+   22. TABLET RESPONSIVE DESIGN
+===================================================== */
+
+@media (max-width: 850px) {
+
+    .stats {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .toolbar h2 {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+
+    .toolbar input {
+        flex: 1;
+    }
+
+    .hero {
+        padding: 25px;
+    }
+
+}
+
+
+/* =====================================================
+   23. MOBILE RESPONSIVE DESIGN
+===================================================== */
+
+@media (max-width: 550px) {
+
+    header,
+    main {
+        padding: 12px;
+    }
+
+    main {
+        padding-bottom: 115px;
+    }
+
+    header {
+        gap: 10px;
+    }
+
+    .brand {
+        font-size: 21px;
+    }
+
+    .brand small {
+        font-size: 9px;
+    }
+
+    #connection {
+        font-size: 10px;
+        padding: 7px 10px;
+    }
+
+    #theme {
+        font-size: 11px;
+        padding: 9px;
+    }
+
+    .hero {
+        padding: 20px;
+        border-radius: 20px;
+    }
+
+    .hero h1 {
+        font-size: 27px;
+    }
+
+    .hero p {
+        font-size: 13px;
+    }
+
+    .hero svg {
+        width: 24%;
+    }
+
+    .hero small {
+        font-size: 9px;
+    }
+
+    .stats {
+        gap: 10px;
+    }
+
+    .stat {
+        padding: 16px;
+    }
+
+    .stat strong {
+        font-size: 22px;
+    }
+
+    .stat p {
+        font-size: 11px;
+    }
+
+    .panel {
+        padding: 16px;
+    }
+
+    .dock {
+        bottom: 12px;
+        gap: 4px;
+        padding: 6px;
+        border-radius: 20px;
+    }
+
+    .dock button {
+        min-width: 65px;
+        padding: 8px;
+        font-size: 21px;
+    }
+
+    .dock span {
+        font-size: 10px;
+    }
+
+    .toolbar {
+        padding: 14px;
+    }
+
+    .toolbar input {
+        width: 100%;
+    }
+
+    .toolbar select {
+        flex: 1;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    dialog {
+        padding: 20px;
+        border-radius: 20px;
+    }
+
+    #confirm {
+        padding: 25px;
+    }
+
+    #confirm h2 {
+        font-size: 23px;
+    }
+
+    #confirm .actions {
+        gap: 10px;
+    }
+
+    #confirm #yes,
+    #confirm #no {
+        padding: 13px 15px;
+    }
+
+    #detailBody p {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    #notice {
+        top: 15px;
+        right: 12px;
+        left: 12px;
+        max-width: none;
+    }
+
+}
+
+
+/* =====================================================
+   24. REDUCED MOTION ACCESSIBILITY
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+
+}
+
+
+/* =====================================================
+   25. PRINT ELECTRICITY BILL
+===================================================== */
+
+@media print {
+
+    @page {
+        size: A4;
+        margin: 15mm;
+    }
+
+    body {
+        background: white !important;
+        color: black !important;
+    }
+
+    body > *:not(#detail) {
+        display: none !important;
+    }
+
+    #detail[open] {
+        position: static !important;
+        display: block !important;
+
+        width: 100% !important;
+        max-width: none !important;
+        max-height: none !important;
+
+        margin: 0 !important;
+        padding: 20px !important;
+
+        overflow: visible !important;
+
+        border: none !important;
+        border-radius: 0 !important;
+
+        background: white !important;
+        color: black !important;
+
+        box-shadow: none !important;
+        animation: none !important;
+        transform: none !important;
+    }
+
+    #detailBody h2 {
+        color: #a51d35 !important;
+        border-bottom: 3px solid #a51d35;
+        padding-bottom: 20px;
+    }
+
+    #detailBody p {
+        color: black !important;
+        border-bottom: 1px solid #dddddd;
+        padding: 13px 0;
+        break-inside: avoid;
+    }
+
+    #detailBody b {
+        color: black !important;
+    }
+
+    #detail .actions {
+        display: none !important;
+    }
+
+    #detail::backdrop {
+        background: transparent !important;
+        backdrop-filter: none !important;
+    }
+
+}
