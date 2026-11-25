@@ -1,1 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#f04b60">
+
+    <title>PowerTrack | Crimson Circuit</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <script defer
+            src="{{ url_for('static', filename='js/app.js') }}">
+    </script>
+
+</head>
+
+<body>
+
+    <!-- ==========================================
+         HEADER
+    =========================================== -->
+
+    <header>
+
+        <div class="brand">
+
+            ⚡ PowerTrack
+
+            <small>CRIMSON CIRCUIT</small>
+
+        </div>
+
+        <span id="connection">
+            Connecting…
+        </span>
+
+        <button type="button" id="theme">
+            ☀ Theme
+        </button>
+
+    </header>
+
+
+    <!-- ==========================================
+         MAIN CONTENT
+    =========================================== -->
+
+    <main>
+
+        <!-- HERO SECTION -->
+
+        <section class="hero">
+
+            <div>
+
+                <small>
+                    SMART ENERGY MANAGEMENT
+                </small>
+
+                <h1>
+                    Take charge of your energy.
+                </h1>
+
+                <p>
+                    Monitor consumption. Simplify billing.
+                </p>
+
+                <button type="button"
+                        class="primary"
+                        id="quick">
+
+                    ＋ New reading
+
+                </button>
+
+            </div>
+
+
+            <!-- ANIMATED ELECTRICAL SVG -->
+
+            <svg viewBox="0 0 200 160"
+                 aria-hidden="true">
+
+                <g class="circuit"
+                   fill="none"
+                   stroke="currentColor">
+
+                    <circle cx="100"
+                            cy="80"
+                            r="66"
+                            stroke-dasharray="5 7"/>
+
+                    <path d="M5 25H45V50
+                             M195 135H155V110
+                             M10 130H40V100
+                             M190 30H160V60"/>
+
+                </g>
+
+                <path class="bolt"
+                      d="M110 12L48 91H91L80 149L154 65H107Z"
+                      fill="#ff4967"
+                      stroke="#ffb2bf"
+                      stroke-width="2"/>
+
+            </svg>
+
+        </section>
+
+
+        <!-- ======================================
+             DASHBOARD
+        ======================================= -->
+
+        <section id="dashboard">
+
+            <div id="stats" class="stats"></div>
+
+            <section class="panel">
+
+                <h2>
+                    Monthly consumption (kWh)
+                </h2>
+
+                <canvas id="chart"
+                        height="110">
+                </canvas>
+
+                <p id="chartTip"
+                   aria-live="polite">
+
+                    Select a bar to inspect consumption.
+
+                </p>
+
+            </section>
+
+        </section>
+
+
+        <!-- ======================================
+             RECORD MANAGEMENT
+        ======================================= -->
+
+        <section id="records" hidden>
+
+            <div class="toolbar">
+
+                <h2 id="heading"></h2>
+
+                <button type="button"
+                        id="add"
+                        class="primary">
+
+                    ＋ Add record
+
+                </button>
+
+                <input type="search"
+                       id="search"
+                       placeholder="Search records"
+                       aria-label="Search records">
+
+                <select id="filter"
+                        aria-label="Filter records">
+                </select>
+
+                <button type="button"
+                        id="view">
+
+                    Card / Table
+
+                </button>
+
+            </div>
+
+            <!-- DYNAMIC FIRESTORE RECORDS -->
+
+            <div id="list"></div>
+
+        </section>
+
+
+        <!-- SYSTEM NOTIFICATIONS -->
+
+        <p id="notice"
+           role="status"
+           aria-live="polite">
+        </p>
+
+    </main>
+
+
+    <!-- ==========================================
+         FLOATING ICON DOCK
+    =========================================== -->
+
+    <nav class="dock"
+         aria-label="Main navigation">
+
+        <button type="button"
+                data-page="dashboard">
+
+            ⌂
+
+            <span>Overview</span>
+
+        </button>
+
+
+        <button type="button"
+                data-page="consumers">
+
+            ♙
+
+            <span>Consumers</span>
+
+        </button>
+
+
+        <button type="button"
+                data-page="meter_readings">
+
+            ◴
+
+            <span>Readings</span>
+
+        </button>
+
+
+        <button type="button"
+                data-page="bills">
+
+            ▤
+
+            <span>Bills</span>
+
+        </button>
+
+    </nav>
+
+
+    <!-- ==========================================
+         ADD AND EDIT RECORD MODAL
+    =========================================== -->
+
+    <dialog id="modal"
+            aria-labelledby="modalTitle">
+
+        <form id="form">
+
+            <h2 id="modalTitle"></h2>
+
+            <!-- DYNAMIC FORM FIELDS -->
+
+            <div id="fields"></div>
+
+            <!-- VALIDATION ERRORS -->
+
+            <p id="formError"
+               role="alert"
+               aria-live="assertive">
+            </p>
+
+
+            <div class="actions">
+
+                <button type="button"
+                        id="cancel">
+
+                    Cancel
+
+                </button>
+
+
+                <button type="submit"
+                        id="save"
+                        class="primary">
+
+                    Save
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </dialog>
+
+
+    <!-- ==========================================
+         SINGLE RECORD DETAILS
+    =========================================== -->
+
+    <dialog id="detail"
+            aria-label="Record details">
+
+        <div id="detailBody"></div>
+
+        <div class="actions">
+
+            <button type="button"
+                    id="print">
+
+                🖨 Print bill
+
+            </button>
+
+
+            <button type="button"
+                    id="closeDetail">
+
+                Close
+
+            </button>
+
+        </div>
+
+    </dialog>
+
+
+    <!-- ==========================================
+         DELETE CONFIRMATION - FIXED
+    =========================================== -->
+
+    <dialog id="confirm"
+            aria-labelledby="confirmTitle"
+            aria-describedby="confirmDescription">
+
+
+        <!-- ANIMATED WARNING ICON -->
+
+        <div class="confirm-icon">
+
+            <svg width="42"
+                 height="42"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="1.8"
+                 stroke-linecap="round"
+                 stroke-linejoin="round"
+                 aria-hidden="true">
+
+                <path d="M10.29 3.86
+                         L1.82 18
+                         a2 2 0 0 0 1.71 3
+                         h16.94
+                         a2 2 0 0 0 1.71-3
+                         L13.71 3.86
+                         a2 2 0 0 0-3.42 0z"/>
+
+                <line x1="12"
+                      y1="9"
+                      x2="12"
+                      y2="13"/>
+
+                <line x1="12"
+                      y1="17"
+                      x2="12.01"
+                      y2="17"/>
+
+            </svg>
+
+        </div>
+
+
+        <h2 id="confirmTitle">
+
+            Delete record?
+
+        </h2>
+
+
+        <p id="confirmDescription">
+
+            This action cannot be undone.
+
+        </p>
+
+
+        <!-- DELETE ERROR MESSAGE -->
+
+        <p id="deleteError"
+           role="alert"
+           aria-live="assertive">
+        </p>
+
+
+        <!-- CONFIRMATION BUTTONS -->
+
+        <div class="actions">
+
+            <button type="button"
+                    id="no"
+                    class="cancel-delete">
+
+                Cancel
+
+            </button>
+
+
+            <button type="button"
+                    id="yes"
+                    class="delete">
+
+                Delete
+
+            </button>
+
+        </div>
+
+    </dialog>
+
+</body>
+
+</html>
